@@ -1,6 +1,6 @@
 """
 @author:maohui
-@time:2022/7/19 9:55
+@time:2022/7/21 13:44
   　　　　　　　 ┏┓    ┏┓+ +
   　　　　　　　┏┛┻━━━━┛┻┓ + +
   　　　　　　　┃        ┃ 　 
@@ -24,34 +24,15 @@
   　　　　　　　   ┗┻┛     ┗┻┛+ + + +
 """
 
-# 定义一个类：描述每个页面相同的属性和行为
+import yaml
 
-from appium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
+def get_yaml_data(fileDir):
+    resList=[] #存放结果[(请求1，期望响应1)，(请求2，期望响应2)]
 
-class BasePage():
-    def __init__(self, driver):
-        self.driver = driver
-
-    # 元素定位
-    def locator(self, loc):
-        return self.driver.find_element(*loc)
-
-    # 输入
-    def input(self, loc, value):
-        self.locator(loc).clear()
-        self.locator(loc).send_keys(value)
-
-    # 点击
-    def click(self, loc):
-        self.locator(loc).click()
-
-    #等待
-    def wait_ele_presence(self,loc):
-        self.wait=WebDriverWait(self.driver,30)
-        self.wait.until(expected_conditions.presence_of_element_located(loc))
-
-    #获取文本
-    def get_text(self,loc):
-        return self.locator(loc).text
+    #1- 读取文件操作-----从磁盘读取到内存里
+    file = open(fileDir,'r',encoding="utf-8")
+    #2- 使用yaml方法获取数据
+    res=yaml.load(file,Loader=yaml.FullLoader)
+    print(res)
+    file.close()
+    return res

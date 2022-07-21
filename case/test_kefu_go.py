@@ -34,7 +34,7 @@ from selenium.webdriver.common.by import By
 from page.hjkjpage import HjKjPage
 from page.weixinpage import WeiXinPage
 
-@pytest.mark.flaky(reruns=3, reruns_delay=5)
+# @pytest.mark.flaky(reruns=3, reruns_delay=5)
 class TestKeFuGO():
     @classmethod
     def setup_class(cls):
@@ -49,8 +49,7 @@ class TestKeFuGO():
         # desired_caps['fullReset'] = False  # 不重置app的缓存文件
         desired_caps['unicodeKeyboard'] = True  # 设置键盘支持中文输入
         desired_caps['resetKeyboard'] = True  # 重置键盘
-        desired_caps['chromeOptions'] = {'androidProcess': 'com.tencent.mm:appbrand0'
-                                                           ''}
+        desired_caps['chromeOptions'] = {'androidProcess': 'com.tencent.mm:appbrand0'}
 
         # 连接appium server，告诉appium，代码要操作哪个设备上的哪个APP
         # 启动手机上App
@@ -74,7 +73,6 @@ class TestKeFuGO():
         for handle in self.driver.window_handles:
             self.driver.switch_to.window(handle)
             url = self.driver.current_url
-            print(url)
             if url != "https://servicewechat.com/wxa15762d564231c76/41/page-frame.html":
                 assert "联系客服"==self.driver.find_element(By.XPATH,'/html/body/wx-view/wx-view[2]/wx-button/text()').text
     def test_14(self):

@@ -33,7 +33,7 @@ from selenium.webdriver.common.by import By
 from page.hjkjpage import HjKjPage
 from page.weixinpage import WeiXinPage
 
-@pytest.mark.flaky(reruns=3, reruns_delay=10)
+# @pytest.mark.flaky(reruns=3, reruns_delay=10)
 class TestLogisticsGO():
     @classmethod
     def setup_class(cls):
@@ -60,7 +60,7 @@ class TestLogisticsGO():
         # cls.driver.quit()
         pass
 
-    def test_logistics_go_09(self):
+    def test_logistics_go_1(self):
         """物流查询的跳转"""
         WeiXinPage(self.driver).click_hjkj()
         HjKjPage(self.driver).click_servercenter()

@@ -1,6 +1,6 @@
 """
 @author:maohui
-@time:2022/7/19 9:55
+@time:2022/7/21 14:46
   　　　　　　　 ┏┓    ┏┓+ +
   　　　　　　　┏┛┻━━━━┛┻┓ + +
   　　　　　　　┃        ┃ 　 
@@ -24,34 +24,16 @@
   　　　　　　　   ┗┻┛     ┗┻┛+ + + +
 """
 
-# 定义一个类：描述每个页面相同的属性和行为
-
 from appium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
 
-class BasePage():
-    def __init__(self, driver):
-        self.driver = driver
+from base.basepage import BasePage
+from selenium.webdriver.common.by import By
+class SamplePage(BasePage):
+    #元素定位
+    confirm_order_loc=(By.XPATH,'//*[@id="postbook_btn"]')
 
-    # 元素定位
-    def locator(self, loc):
-        return self.driver.find_element(*loc)
 
-    # 输入
-    def input(self, loc, value):
-        self.locator(loc).clear()
-        self.locator(loc).send_keys(value)
-
-    # 点击
-    def click(self, loc):
-        self.locator(loc).click()
-
-    #等待
-    def wait_ele_presence(self,loc):
-        self.wait=WebDriverWait(self.driver,30)
-        self.wait.until(expected_conditions.presence_of_element_located(loc))
-
-    #获取文本
-    def get_text(self,loc):
-        return self.locator(loc).text
+    #点击确认预约
+    def click_confirm_order(self):
+        self.wait_ele_presence(self.confirm_order_loc)
+        self.click(self.confirm_order_loc)

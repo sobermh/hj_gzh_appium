@@ -27,13 +27,12 @@ import os
 import time
 import pytest
 from appium import webdriver
-from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.common.by import By
 from base.basepage import BasePage
 from page.weixinpage import WeiXinPage
 from page.hjkjpage import HjKjPage
 
-@pytest.mark.flaky(reruns=3, reruns_delay=5)
+# @pytest.mark.flaky(reruns=3, reruns_delay=5)
 class TestAboutGo():
     @classmethod
     def setup_class(cls):
@@ -51,8 +50,10 @@ class TestAboutGo():
         desired_caps['chromeOptions']={'androidProcess': 'com.tencent.mm:tools'}
 
         # 连接appium server，告诉appium，代码要操作哪个设备上的哪个APP
+
         # 启动手机上App
         cls.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
+
     @classmethod
     def teardown_class(cls):
         """关闭微信界面"""
@@ -60,6 +61,7 @@ class TestAboutGo():
     # 关于我们的跳转
     def test_aboutus_go_01(self):
         """关于我们的跳转"""
+
         WeiXinPage(self.driver).click_hjkj()
         HjKjPage(self.driver).click_aboutus()
         time.sleep(5)
@@ -70,7 +72,7 @@ class TestAboutGo():
             self.driver.switch_to.window(handle)
             url = self.driver.current_url
             if url=="http://gzhabouthj.well-healthcare.com:10020/about.html" :
-                actual_text=self.driver.find_element(By.XPATH,'/html/body/div/div[4]/div/div/div/a[1]').text
+                actual_text=self.driver.find_element(By.XPATH,'/html/body/div[4]/div/div/div/a[1]').text
                 assert "汇健简介" == actual_text
     def test_02(self):
         pass

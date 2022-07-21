@@ -34,7 +34,7 @@ from page.hjkjpage import HjKjPage
 from page.weixinpage import WeiXinPage
 
 
-@pytest.mark.flaky(reruns=3, reruns_delay=5)
+# @pytest.mark.flaky(reruns=3, reruns_delay=5)
 class TestWenJuanGO():
     @classmethod
     def setup_class(cls):

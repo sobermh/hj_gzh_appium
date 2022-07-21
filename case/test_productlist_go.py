@@ -32,7 +32,7 @@ from selenium.webdriver.common.by import By
 from page.hjkjpage import HjKjPage
 from page.weixinpage import WeiXinPage
 
-@pytest.mark.flaky(reruns=3, reruns_delay=10)
+# @pytest.mark.flaky(reruns=3, reruns_delay=10)
 class TestProductListGO():
     @classmethod
     def setup_class(cls):

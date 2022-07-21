@@ -30,10 +30,12 @@ import pytest
 from appium import webdriver
 from selenium.webdriver.common.by import By
 
+
+from base.basepage import BasePage
 from page.hjkjpage import HjKjPage
 from page.weixinpage import WeiXinPage
-
-@pytest.mark.flaky(reruns=3, reruns_delay=10)
+from page.samplepage import SamplePage
+# @pytest.mark.flaky(reruns=3, reruns_delay=10)
 class TestSampleGO():
     @classmethod
     def setup_class(cls):
@@ -57,10 +59,9 @@ class TestSampleGO():
     @classmethod
     def teardown_class(cls):
         """关闭微信界面"""
-        # cls.driver.quit()
-        pass
+        cls.driver.quit()
 
-    def test_sample_go_07(self):
+    def test_sample_go_1(self):
         """样本寄回的跳转"""
         WeiXinPage(self.driver).click_hjkj()
         HjKjPage(self.driver).click_servercenter()
@@ -74,5 +75,10 @@ class TestSampleGO():
             url = self.driver.current_url
             if url == "http://gzh.well-healthcare.com/deliverpage":
                 assert "寄回的样本条码"==self.driver.find_element(By.XPATH,'//*[@id="postForm"]/h3[1]').text
-    def test_08(self):
-        pass
+    def test_order_error_2(self):
+        """无内容直接点击确认预约"""
+        SamplePage(self.driver).click_confirm_order()
+        BasePage(self.driver).wait_ele_presence((By.XPATH,'//*[@id="alert_msg"]/div[1]'))
+        actual_text=BasePage(self.driver).get_text((By.XPATH,'//*[@id="alert_msg"]/div[1]'))
+        BasePage(self.driver).click((By.XPATH,'//*[@id="alert_buttons"]/button'))
+        assert actual_text=="请输入取件地址"
